@@ -1,4 +1,5 @@
-from Identifiers import MeasurementDefiner as md
+from Identifiers import MeasuresManager as mm
+import pandas as pd
 
 # regexp = r'^[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]+\s*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*$'
 regexp = '(\d+(\.\d*)?)'
@@ -35,13 +36,32 @@ b = True
 c = True
 
 print(bool(a * b * c))
-defer = md.MeasurementDefiner()
+defer = mm.MeasuresManager("")
 
-hs = {'Содержание дисциплины соответствовало заявленному в программе дисциплины': {'Полностью согласен': 38,
-  'Согласен': 12,
-  'Не определился': 1}}
+data = pd.read_csv("data/seps_utf.csv", ';')
+data = data[data.columns.drop(list(data.filter(regex='Unnamed')))]
+data = data.drop(['Оценка', 'Группа'], 1)
+data = data.dropna()
+  # {'Содержание дисциплины соответствовало заявленному в программе дисциплины': {'Полностью согласен': 38,
+  # 'Согласен': 12,
+  # 'Не определился': 1}}
+# print(data.columns)
+# print(str(data['Место дисциплины в программе обучения обосновано'].mode()))
+# for h in hs:
+#   print(h)
 
-print(defer.numeric_identifier.validate_interval("0-30"))
-hs['popa'] = 1
-print(hs)
-# pd.DataFrame.from_dict
+# print(defer.define_measures(hs))
+
+# hs['popa'] = 1
+# print(list(hs.keys()))
+# # pd.DataFrame.from_dict
+# test_var = "init val"
+#
+# test_hs = {"val":{"inv":7}, "or": 8}
+# def scoping_test(nm):
+#   nm["val"] = 6
+#
+# scoping_test(test_hs)
+# print(test_hs)
+ar = ["baba", "boey"]
+print("".join(map(lambda x: x+"\n", ar)))
