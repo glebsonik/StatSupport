@@ -11,10 +11,7 @@ class MeasurementDefiner:
         if self.is_interval(data_sign):
             return 'Interval'
         else:
-            if self.ordinal_identifier.is_ordinal(data_sign):
-                return 'Ordinal'
-            else:
-                return 'Nominal'
+            return 'Nominal'
 
     def is_interval(self, data_sign):
         is_correct_interval = True
