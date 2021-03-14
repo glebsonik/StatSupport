@@ -6,7 +6,13 @@ class NumericIdentifier:
     # intervalRegexp = re.compile(r'^[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]+\s*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*$')
     float_text_regexp = re.compile(r'^.{0,12}\d+[.,]\d*.{0,9}$')
 
-    def is_number_or_num_interval(self, value):
+    def is_interval(self, data_sign):
+        is_correct_interval = True
+        for metric_value in list(data_sign.keys()):
+            is_correct_interval *= self.__is_number_or_num_interval(metric_value)
+        return is_correct_interval
+
+    def __is_number_or_num_interval(self, value):
         if type(value) == float:
             return True
         else:

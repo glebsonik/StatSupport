@@ -1,7 +1,7 @@
-from StatsCharacteristicsBuilders.OrdinalMeasureCalculator import OrdinalMeasureCalculator
+from Core.MeasureSigns.SelfStatisticCalculators.OrdinalCalculator import OrdinalCalculator
 
 
-class IntervalMeasureCalculator(OrdinalMeasureCalculator):
+class IntervalCalculator(OrdinalCalculator):
 
     @staticmethod
     def calc_mean(sign_dict):

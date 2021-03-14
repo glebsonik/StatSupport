@@ -1,8 +1,11 @@
-class OrdinalMeasureCalculator:
+from . import NominalCalculator
+
+
+class OrdinalCalculator(NominalCalculator):
 
     @staticmethod
-    def calc_mode(sign_dict):
-        return sign_dict.mode()
+    def calc_median(self, sign_data):
+        sign_data
 
     @staticmethod
     def calc_min(encoded_sign_dict):
