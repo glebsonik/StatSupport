@@ -1,6 +1,6 @@
 
 
-class NumericMeasureSign:
+class IntervalMeasureSign:
 
     sign_name = None
     aggregated_data = None

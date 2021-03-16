@@ -1,16 +1,13 @@
-from . import NominalCalculator
+from .NominalCalculator import NominalCalculator
 
 
 class OrdinalCalculator(NominalCalculator):
 
-    @staticmethod
     def calc_median(self, sign_data):
-        sign_data
-
-    @staticmethod
-    def calc_min(encoded_sign_dict):
         raise NotImplemented("Method is not implemented")
 
-    @staticmethod
-    def calc_max(encoded_sign_dict):
+    def calc_min(self, encoded_sign_dict):
+        raise NotImplemented("Method is not implemented")
+
+    def calc_max(self, encoded_sign_dict):
         raise NotImplemented("Method is not implemented")
