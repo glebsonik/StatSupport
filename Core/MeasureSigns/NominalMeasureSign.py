@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 
 class NominalMeasureSign(AbstractMeasureSign):
 
+    _measure = 'Nominal'
+
     def get_stat_info(self):
         plt.figure(figsize=(35, 14))
         plt.rcParams.update({'font.size': 27})

@@ -1,14 +1,14 @@
+from .AbstractSign import AbstractMeasureSign
 
 
-class IntervalMeasureSign:
+class IntervalMeasureSign(AbstractMeasureSign):
 
     sign_name = None
     aggregated_data = None
+    _measure = 'Interval'
 
-    def __init__(self, sign_name, aggregated_data):
-        self.sign_name = sign_name
-        self.aggregated_data = aggregated_data
-
+    def get_stat_info(self):
+        raise NotImplementedError("Abstract class has no methods implementation")
     # def __ident_order(self):
     #     for sign_name in self.aggregated_data:
 

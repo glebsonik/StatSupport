@@ -8,10 +8,10 @@ class MeasuresManager:
     raw_df = None
     measure_definer = MeasurementDefiner()
 
-    def __init__(self, dtf):
+    def __init__(self, dtf, formatter):
         self.signs = []
         self.raw_df = copy.deepcopy(dtf)
-        self.measure_format = 'html'
+        self.measure_format = formatter
         self.__define_measures()
 
     def __dict_with_measures(self):
@@ -45,4 +45,18 @@ class MeasuresManager:
 
     # Syntax sugar
     def __getitem__(self, sign_name):
-        return [sign for sign in self.signs if sign._name == sign_name][0]
+        matched_signs = [sign for sign in self.signs if sign._name == sign_name]
+        if len(matched_signs) == 0:
+            raise NameError(f'No such sign found by: {sign_name}')
+        return matched_signs[0]
+
+    def __setitem__(self, key, value):
+        sign_index = None
+        for index, item in enumerate(self.signs):
+            if item._name == key:
+                sign_index = index
+                break
+        if sign_index:
+            self.signs[sign_index] = value
+        else:
+            raise NameError(f'No such sign found by name: {value}')

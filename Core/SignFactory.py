@@ -1,18 +1,41 @@
 from Core.MeasureSigns.NominalMeasureSign import NominalMeasureSign
+from Core.MeasureSigns.OrdinalMeasureSign import OrdinalMeasureSign
+
 from Core.MeasureSigns.Formatters.NominalHTMLFormatter import NominalHTMLFormatter
+from Core.MeasureSigns.Formatters.OrdinalHTMLFormatter import OrdinalHTMLFormatter
 
 
 class SignFactory:
     def __init__(self, formatter):
-        self.formatter = formatter if formatter else None
+        if formatter == '':
+            raise AttributeError('Empty formatter is not allowed, please specify formatter or pass None arg')
 
-    def create_measure(self, sign_name, aggregated_values, measure_type):
-        return getattr(self, f'create_{measure_type}_measure')(sign_name, aggregated_values)
+        self.formatter = formatter if formatter.lower() else 'none'
+
+    def create_measure(self, sign_name, aggregated_values, measure_type, values=None):
+        if measure_type == 'nominal':
+            return self.create_nominal_measure(sign_name, aggregated_values)
+        elif measure_type == 'ordinal':
+            return self.create_ordinal_measure(sign_name, aggregated_values, values)
+        else:
+            raise NameError(f'No such measure {measure_type}')
 
     def create_nominal_measure(self, sign_name, aggregated_values):
-        if (self.formatter == 'none') or not self.formatter:
-            return NominalMeasureSign(sign_name, aggregated_values)
-        elif self.formatter == 'html':
-            return NominalHTMLFormatter(sign_name, aggregated_values)
-        else:
-            raise Exception(f'Unknown formatter {self.formatter}')
+        measure_class = self._allowed_data()['nominal'][self.formatter]
+        if not measure_class:
+            raise AttributeError(
+                f"Wrong nominal formatter: {self.formatter}, allowed formatters {self._allowed_data()['nominal'].keys}")
+        return measure_class(sign_name, aggregated_values)
+
+    def create_ordinal_measure(self, sign_name, aggregated_values, ranks):
+        measure_class = self._allowed_data()['ordinal'][self.formatter]
+        if not measure_class:
+            raise AttributeError(
+                f"Wrong nominal formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
+        return measure_class(sign_name, aggregated_values, ranks)
+
+    def _allowed_data(self):
+        return {
+            'nominal': {'html': NominalHTMLFormatter, 'none': NominalMeasureSign},
+            'ordinal': {'html': OrdinalHTMLFormatter, 'none': OrdinalMeasureSign}
+        }
