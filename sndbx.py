@@ -74,6 +74,31 @@ data = data[data.columns.drop(list(data.filter(regex='Unnamed')))]
 data = data.drop(['Оценка', 'Группа'], 1)
 data = data.dropna()
 
-mm = MeasuresManager(data)
-print(mm['Перед изучением дисциплины [был ли у Вас соответствующий практический опыт]'].get_stat_info())
+# mm = MeasuresManager(data)
+# print(mm['Перед изучением дисциплины [был ли у Вас соответствующий практический опыт]'].get_stat_info())
 # print(mm.raw_signs_names())
+ar = ['pipa','popa']
+ar_2 = list(map(lambda x: x + 'pip', ar))
+
+print(ar)
+print(ar_2)
+
+
+class TestCls:
+
+    def invoke(self, nam):
+        nam.name += 'pipa'
+
+    def test_m(self):
+        print('test_m')
+
+
+class ModelCls:
+    name = 'test'
+
+cls = TestCls()
+model = ModelCls()
+# cls.invoke('test_m')
+
+cls.invoke(model)
+print(model.name)
