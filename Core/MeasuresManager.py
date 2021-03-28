@@ -1,4 +1,6 @@
 import copy
+from functools import reduce
+
 from Core.Identifiers.MeasurementDefiner import MeasurementDefiner
 from Core.SignFactory import SignFactory
 
@@ -30,6 +32,13 @@ class MeasuresManager:
 
     def raw_signs_names(self):
         return list(map(lambda sign: sign.name, self.signs))
+
+    def f_signs_names(self):
+        signs_names_list = list(map(lambda sign: sign.f_name, self.signs))
+        if self.measure_format == 'html':
+            return f"<ul>{reduce(lambda x, y: x+f'<li>{y}</li>', signs_names_list, '')}</ul>"
+        else:
+            return signs_names_list
 
     # def signs_html(self):
     #     hdr = ''

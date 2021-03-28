@@ -1,4 +1,7 @@
 # from Core.Identifiers import MeasuresManager as mm
+from functools import reduce
+from itertools import accumulate
+
 from Core.MeasureSigns.Formatters.NominalHTMLFormatter import NominalHTMLFormatter
 from Core.SignFactory import SignFactory
 from Core.MeasuresManager import MeasuresManager
@@ -102,6 +105,7 @@ model = ModelCls()
 var_1 = 'Ord'
 var_1.lower()
 print(var_1)
-
+print(f"<ul>{reduce(lambda x, y: x + f'<li>{y}</li>', ['first', 'second', 'third', 'fourth'], '')}</ul>")
+print(f"{list(accumulate(['first', 'second', 'third', 'fourth'], lambda x, y: x + y))}")
 # cls.invoke(model)
 # print(model.name)

@@ -51,12 +51,13 @@ class ConverterUI:
                 display(allowed_measures_dropdown)
                 display(self.convert_container)
                 display(self.convert_button)
+
         return signs_dropdown_controller
 
     def get_measure_dropdown_controller(self):
         def measure_dropdown_controller(change):
             if change['type'] == 'change' and change['name'] == 'value':
-                self.convert_button.disabled = not(self.is_data_correct())
+                self.convert_button.disabled = not (self.is_data_correct())
                 i = 0
                 self.operation_data['measure'] = change['new']
                 if change['new'] == 'Ordinal':
@@ -66,37 +67,36 @@ class ConverterUI:
                         ordinal_dropdown = widgets.Dropdown(value=None, description=f'{i}. ', options=sign_values)
                         ordinal_dropdown.observe(self.get_values_controller())
                         self.convert_container.children += (ordinal_dropdown,)
+
         return measure_dropdown_controller
 
     def is_data_correct(self):
         values = self.collect_values()
-        is_uniq = (len(values) > 0) and (len(values) == len(set(values))) and all((value is not None) for value in values)
+        print(values)
+        is_uniq = (len(values) == 0) or ((len(values) > 0) and (len(values) == len(set(values))) and all((value is not None) for value in values))
         return is_uniq
 
     def get_values_controller(self):
         def values_controller(change):
-            print('op data: ', self.operation_data)
-            self.convert_button.disabled = not(self.is_data_correct())
+            self.convert_button.disabled = not (self.is_data_correct())
+
         return values_controller
 
     def get_convert_button_controller(self):
         def convert_button_controller(sender=None):
             previous_measure = self.measures_manager[self.operation_data['sign_name']]
             sign_factory = SignFactory(self.measures_manager.measure_format)
-
-            print('frmt ', self.measures_manager.measure_format)
-            print('op data: ', self.operation_data)
-            print(self.collect_values())
             mr = sign_factory.create_measure(
                 self.operation_data['sign_name'],
                 previous_measure._aggregated_data,
                 self.operation_data['measure'],
                 self.collect_values()
             )
-            print('mr: ', mr)
             self.measures_manager[self.operation_data['sign_name']] = mr
             self.ui()
-            display(HTML(f"<div>Successfully converted {self.operation_data['sign_name']} to <b>{self.operation_data['measure']}</b></div>"))
+            display(HTML(
+                f"<div>Successfully converted {self.operation_data['sign_name']} to <b>{self.operation_data['measure']}</b></div>"))
+
         return convert_button_controller
 
     def collect_values(self):
