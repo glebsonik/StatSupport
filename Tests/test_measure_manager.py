@@ -34,19 +34,19 @@ class TestUM:
 
     def test_measure_get_item(self):
         measure_manager = MeasuresManager(self.test_data, 'html')
-        assert measure_manager[self.test_cols_names[0]]._name == self.test_cols_names[0]
-        assert measure_manager[self.test_cols_names[1]]._name == self.test_cols_names[1]
-        assert measure_manager[self.test_cols_names[2]]._name == self.test_cols_names[2]
+        assert measure_manager[self.test_cols_names[0]].name == self.test_cols_names[0]
+        assert measure_manager[self.test_cols_names[1]].name == self.test_cols_names[1]
+        assert measure_manager[self.test_cols_names[2]].name == self.test_cols_names[2]
 
 
     def test_measures_set_item(self):
         test_sign_name = 'Some coool new name'
         test_sign = NominalMeasureSign('Some coool new name', {'Answ_1': 5, 'Answ_2': 6, 'Answ_3': 9})
         measure_manager = MeasuresManager(self.test_data, 'html')
-        print('Signs names before: ', list(map(lambda x: x._name, measure_manager.signs)))
+        print('Signs names before: ', list(map(lambda x: x.name, measure_manager.signs)))
         initial_length = len(measure_manager.signs)
         measure_manager[self.test_cols_names[2]] = test_sign
-        print('Signs names after: ', list(map(lambda x: x._name, measure_manager.signs)))
+        print('Signs names after: ', list(map(lambda x: x.name, measure_manager.signs)))
         assert 'Some coool new name', measure_manager[test_sign_name]._name
         assert len(measure_manager.signs), initial_length
         print(measure_manager.raw_signs_names())

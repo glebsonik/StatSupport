@@ -29,7 +29,7 @@ class MeasuresManager:
                                                           self.measure_definer.define_measure(measures[sign_name])))
 
     def raw_signs_names(self):
-        return list(map(lambda sign: sign._name, self.signs))
+        return list(map(lambda sign: sign.name, self.signs))
 
     # def signs_html(self):
     #     hdr = ''
@@ -39,13 +39,14 @@ class MeasuresManager:
     #     for sign in self.signs:
     #         hdr = hdr + "<tr>"
     #         hdr = hdr + '<td>' + sign.name + '</td>'
-    #         hdr = hdr + '<td style="text-align:left">' + str(sign.aggregated_data) + '</td>'
+    #         hdr = hdr + '<td style="text-align:left">' + str(sign.f_aggregated_data) + '</td>'
     #         hdr = hdr + "</tr>"
     #     return "<table>" + hdr + "</table>"
 
     # Syntax sugar
     def __getitem__(self, sign_name):
-        matched_signs = [sign for sign in self.signs if sign._name == sign_name]
+        print(list(map(lambda x: x.name, self.signs)))
+        matched_signs = [sign for sign in self.signs if sign.name == sign_name]
         if len(matched_signs) == 0:
             raise NameError(f'No such sign found by: {sign_name}')
         return matched_signs[0]
@@ -53,7 +54,8 @@ class MeasuresManager:
     def __setitem__(self, key, value):
         sign_index = None
         for index, item in enumerate(self.signs):
-            if item._name == key:
+            print('item name ', item.name)
+            if item.name == key:
                 sign_index = index
                 break
         if sign_index:

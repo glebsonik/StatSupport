@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from .AbstractSign import AbstractMeasureSign
 from .SelfStatisticCalculators.OrdinalCalculator import OrdinalCalculator
 
+
 class OrdinalMeasureSign(AbstractMeasureSign):
 
     _measure = 'Ordinal'

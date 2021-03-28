@@ -3,25 +3,25 @@ from Core.MeasureSigns.NominalMeasureSign import NominalMeasureSign
 
 class NominalHTMLFormatter(NominalMeasureSign):
 
-    # def __init__(self, name, aggregated_data):
-    #     super(NominalMeasureSign, name, aggregated_data)
+    # def __init__(self, name, f_aggregated_data):
+    #     super(NominalMeasureSign, name, f_aggregated_data)
 
     @property
-    def name(self):
+    def f_name(self):
         return f'<div>{self._name}</div>'
 
     # @name.setter
     # def name(self, name):
 
     @property
-    def aggregated_data(self):
+    def f_aggregated_data(self):
         signs_list = ''
         for key in self._aggregated_data:
             signs_list += '<li>' + str(key) + ' – ' + str(self._aggregated_data[key]) + '</li>\n'
         signs_list = '<ul>\n' + signs_list + '</ul>'
         return signs_list
 
-    def get_stat_info(self):
+    def f_get_stat_info(self):
         res_html_info = ''
         info_dict = super().get_stat_info()
         for info_key in info_dict:

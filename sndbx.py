@@ -64,7 +64,7 @@ sign = SignFactory('html').create_measure("Some cool name",
 sign_2 = SignFactory('html').create_measure("2 name",
                                           {"asdf ": 34, "Ze Ah": 12, "VSign": 45},
                                           'nominal')
-# print(sign.aggregated_data)
+# print(sign.f_aggregated_data)
 # print(sign.name)
 # print(sign._name)
 # print(sign._aggregated_data)

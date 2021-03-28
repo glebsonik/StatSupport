@@ -31,7 +31,7 @@ class ConverterUI:
     def get_signs_dropdown_controller(self):
         def signs_dropdown_controller(change):
             if change['type'] == 'change' and change['name'] == 'value':
-                self.operation_data['sign_name'] = self.measures_manager[change['new']]._name
+                self.operation_data['sign_name'] = self.measures_manager[change['new']].name
                 measures = ['Nominal', 'Ordinal', 'Interval']
                 chosen_sign = self.measures_manager[change['new']]
                 self.ui()

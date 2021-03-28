@@ -19,10 +19,10 @@ class TestSignFactory:
 
         for example in self.data_examples:
             measure = html_sign_factory.create_measure(example[0], example[1], example[2], example[3])
-            assert measure._name == example[0]
-            assert measure._aggregated_data == example[1]
+            assert measure.name == example[0]
+            assert measure.aggregated_data == example[1]
             assert measure._measure.lower() == example[2]
             measure = none_formatter_sign_factory.create_measure(example[0], example[1], example[2], example[3])
-            assert measure._name == example[0]
-            assert measure._aggregated_data == example[1]
+            assert measure.name == example[0]
+            assert measure.aggregated_data == example[1]
             assert measure._measure.lower() == example[2]

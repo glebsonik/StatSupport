@@ -2,6 +2,7 @@ import pytest
 import re
 from Core.MeasureSigns.OrdinalMeasureSign import OrdinalMeasureSign
 from Core.MeasureSigns.Formatters.OrdinalHTMLFormatter import OrdinalHTMLFormatter
+from unittest.mock import patch
 
 
 class TestOrdinalAndFormatter:
@@ -16,7 +17,7 @@ class TestOrdinalAndFormatter:
                                       "ranks": ["No", "Maybe", "Yes"],
                                       'range': 2,
                                       'mode': {"Maybe": 87},
-                                      'median': "Maybe"
+                                      'median': {"Maybe": 87}
                                       }, {"name": "Тест Ранговой шкалі",
                                           "data": {
                                               89: 5,
@@ -57,8 +58,8 @@ class TestOrdinalAndFormatter:
             sign = OrdinalMeasureSign(data_example['name'],
                                       data_example['data'],
                                       data_example['ranks'])
-            print(sign._name)
-            print(sign._aggregated_data)
+            print(sign.name)
+            print(sign.aggregated_data)
             print(sign._ordered_data)
             assert sign.name == data_example['name']
             assert sign._aggregated_data == data_example['data']
@@ -76,23 +77,24 @@ class TestOrdinalAndFormatter:
         assert stat_data['Median'] == data_example['median']
         assert stat_data['Range'] == data_example['range']
 
-    def test_html_ordinal_init(self):
+    @patch("matplotlib.pyplot.bar")
+    def test_html_ordinal_init(self, plot_stub):
         for data_example in self.correct_ordinal_data:
             print('ex: ', data_example)
 
             sign = OrdinalHTMLFormatter(data_example['name'],
                                         data_example['data'],
                                         data_example['ranks'])
-            print(sign._name)
-            print(sign._aggregated_data)
+            print(sign.name)
+            print(sign.aggregated_data)
             print(sign._ordered_data)
-            assert sign._name == data_example['name']
+            assert sign.name == data_example['name']
             assert sign._aggregated_data == data_example['data']
             assert sign._ordered_data == data_example['ranks']
             print(sign.name)
-            print(sign.aggregated_data)
-            assert re.match(f"<.*>{data_example['name']}</.*>", sign.name)
-            print(sign.get_stat_info())
+            print(sign.f_aggregated_data)
+            assert re.match(f"<.*>{data_example['name']}</.*>", sign.f_name)
+            print(sign.f_get_stat_info())
             # assert re.match(f"<.*>{data_example['data']}</.*>", sign.name)
             # assert sign._aggregated_data == data_example['data']
             # assert sign._ordered_data == data_example['ranks']
