@@ -31,17 +31,17 @@ class MeasuresManager:
     def raw_signs_names(self):
         return list(map(lambda sign: sign._name, self.signs))
 
-    def signs_html(self):
-        hdr = ''
-        for sign in ["Name", "Value"]:
-            hdr = hdr + '<th>' + sign + '</th>'
-
-        for sign in self.signs:
-            hdr = hdr + "<tr>"
-            hdr = hdr + '<td>' + sign.name + '</td>'
-            hdr = hdr + '<td style="text-align:left">' + str(sign.aggregated_data) + '</td>'
-            hdr = hdr + "</tr>"
-        return "<table>" + hdr + "</table>"
+    # def signs_html(self):
+    #     hdr = ''
+    #     for sign in ["Name", "Value"]:
+    #         hdr = hdr + '<th>' + sign + '</th>'
+    #
+    #     for sign in self.signs:
+    #         hdr = hdr + "<tr>"
+    #         hdr = hdr + '<td>' + sign.name + '</td>'
+    #         hdr = hdr + '<td style="text-align:left">' + str(sign.aggregated_data) + '</td>'
+    #         hdr = hdr + "</tr>"
+    #     return "<table>" + hdr + "</table>"
 
     # Syntax sugar
     def __getitem__(self, sign_name):

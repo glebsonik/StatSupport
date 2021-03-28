@@ -24,6 +24,7 @@ class ConverterUI:
         self.signs_dropdown.observe(self.get_signs_dropdown_controller())
 
     def ui(self):
+        self.convert_container.children = ()
         clear_output(wait=True)
         display(self.signs_dropdown)
 
@@ -56,8 +57,6 @@ class ConverterUI:
         def measure_dropdown_controller(change):
             if change['type'] == 'change' and change['name'] == 'value':
                 self.convert_button.disabled = not(self.is_data_correct())
-                #         convert_container.children = ()
-                #         convert_container.children += (widgets.Label(value=signs_dropdown.value),)
                 i = 0
                 self.operation_data['measure'] = change['new']
                 if change['new'] == 'Ordinal':
@@ -82,7 +81,6 @@ class ConverterUI:
 
     def get_convert_button_controller(self):
         def convert_button_controller(sender=None):
-            # ranks_values = if len(self.convert_container.children != 0): None else
             previous_measure = self.measures_manager[self.operation_data['sign_name']]
             sign_factory = SignFactory(self.measures_manager.measure_format)
 
@@ -92,16 +90,13 @@ class ConverterUI:
             mr = sign_factory.create_measure(
                 self.operation_data['sign_name'],
                 previous_measure._aggregated_data,
-                self.operation_data['measure'].lower(),
+                self.operation_data['measure'],
                 self.collect_values()
             )
             print('mr: ', mr)
             self.measures_manager[self.operation_data['sign_name']] = mr
-            # self.ui()
-            display(HTML(f"<div>Successfully converted to <b>{self.operation_data['measure']}</b></div>"))
-            print(self.measures_manager.signs)
-            print(self.measures_manager.raw_signs_names())
-            print(list(map(lambda x: {'name': x._name, 'measure': x._measure}, self.measures_manager.signs)))
+            self.ui()
+            display(HTML(f"<div>Successfully converted {self.operation_data['sign_name']} to <b>{self.operation_data['measure']}</b></div>"))
         return convert_button_controller
 
     def collect_values(self):

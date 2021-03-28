@@ -12,7 +12,8 @@ class SignFactory:
 
         self.formatter = formatter if formatter.lower() else 'none'
 
-    def create_measure(self, sign_name, aggregated_values, measure_type, values=None):
+    def create_measure(self, sign_name, aggregated_values, raw_measure_type, values=None):
+        measure_type = raw_measure_type.lower()
         if measure_type == 'nominal':
             return self.create_nominal_measure(sign_name, aggregated_values)
         elif measure_type == 'ordinal':

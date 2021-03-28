@@ -24,7 +24,10 @@ class OrdinalHTMLFormatter(OrdinalMeasureSign):
         for info_key in info_dict:
             res_html_info += f'<div style="font-weight:bold">{info_key}</div>'
             res_html_info += '<ul>'
-            for stat_key in info_dict[info_key]:
-                res_html_info += f'<li>{stat_key} – {info_dict[info_key][stat_key]}</li>'
+            if isinstance(info_dict[info_key], dict):
+                for stat_key in info_dict[info_key]:
+                    res_html_info += f'<li>{stat_key} – {info_dict[info_key][stat_key]}</li>'
+            else:
+                res_html_info += f'<li>{info_dict[info_key]}</li>'
             res_html_info += '</ul>'
         return res_html_info
