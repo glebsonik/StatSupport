@@ -77,7 +77,7 @@ data = data.dropna()
 # mm = MeasuresManager(data)
 # print(mm['Перед изучением дисциплины [был ли у Вас соответствующий практический опыт]'].get_stat_info())
 # print(mm.raw_signs_names())
-ar = ['pipa','popa']
+ar = ['tes','online']
 ar_2 = list(map(lambda x: x + 'pip', ar))
 
 print(ar)
@@ -87,7 +87,7 @@ print(ar_2)
 class TestCls:
 
     def invoke(self, nam):
-        nam.name += 'pipa'
+        nam.name += 'test_p'
 
     def test_m(self):
         print('test_m')
@@ -99,6 +99,9 @@ class ModelCls:
 cls = TestCls()
 model = ModelCls()
 # cls.invoke('test_m')
+var_1 = 'Ord'
+var_1.lower()
+print(var_1)
 
-cls.invoke(model)
-print(model.name)
+# cls.invoke(model)
+# print(model.name)
