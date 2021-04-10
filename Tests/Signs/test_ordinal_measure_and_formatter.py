@@ -5,7 +5,7 @@ from Core.MeasureSigns.Formatters.OrdinalHTMLFormatter import OrdinalHTMLFormatt
 from unittest.mock import patch
 
 
-class TestOrdinalAndFormatter:
+class TestOrdinalMeasureAndFormatter:
 
     def setup(self):
         self.correct_ordinal_data = [{"name": "Test ordinal Data",
