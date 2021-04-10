@@ -9,7 +9,6 @@ class IntervalMeasureSign(AbstractMeasureSign):
     _measure = 'Interval'
 
     def __init__(self, name, aggregated_data, ranks: dict):
-        print('Intraval is here ===')
         self._ordered_data = {}
         super(IntervalMeasureSign, self).__init__(name, aggregated_data)
         allowed_names = aggregated_data.keys()

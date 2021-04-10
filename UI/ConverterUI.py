@@ -138,15 +138,12 @@ class ConverterUI:
         values_dict = {}
         for i in range(len(values_weights)):
             values_dict[value_names[i]] = values_weights[i]
-        print('values dict: ', values_dict)
         new_measure = sign_factory.create_measure(
             self.operation_data['sign_name'],
             previous_measure.aggregated_data,
             self.operation_data['measure'],
             values_dict
         )
-        print('new meas', new_measure)
-        print('sign name', self.operation_data['sign_name'])
         self.measures_manager[self.operation_data['sign_name']] = new_measure
 
     def collect_values(self):
