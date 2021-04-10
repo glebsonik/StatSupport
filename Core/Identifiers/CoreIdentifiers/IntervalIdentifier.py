@@ -1,7 +1,7 @@
 import re
 
 
-class NumericIdentifier:
+class IntervalIdentifier:
 
     # intervalRegexp = re.compile(r'^[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]+\s*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*$')
     float_text_regexp = re.compile(r'^.{0,12}\d+[.,]\d*.{0,9}$')

@@ -1,11 +1,11 @@
 from Core.Identifiers.CoreIdentifiers.OrdinaIdentifier import OrdinalIdentifier
-from Core.Identifiers.CoreIdentifiers.NumericIdentifier import NumericIdentifier
+from Core.Identifiers.CoreIdentifiers.IntervalIdentifier import IntervalIdentifier
 
 
 class MeasurementDefiner:
 
     def __init__(self):
-        self.numeric_identifier = NumericIdentifier()
+        self.numeric_identifier = IntervalIdentifier()
         self.ordinal_identifier = OrdinalIdentifier()
 
     def define_measure(self, data_sign):
