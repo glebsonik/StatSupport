@@ -1,5 +1,3 @@
-
-
 class NominalCalculator:
 
     # {'sign_value_name': qty}

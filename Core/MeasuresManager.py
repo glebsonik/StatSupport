@@ -54,7 +54,6 @@ class MeasuresManager:
 
     # Syntax sugar
     def __getitem__(self, sign_name):
-        print(list(map(lambda x: x.name, self.signs)))
         matched_signs = [sign for sign in self.signs if sign.name == sign_name]
         if len(matched_signs) == 0:
             raise NameError(f'No such sign found by: {sign_name}')
@@ -63,7 +62,6 @@ class MeasuresManager:
     def __setitem__(self, key, value):
         sign_index = None
         for index, item in enumerate(self.signs):
-            print('item name ', item.name)
             if item.name == key:
                 sign_index = index
                 break
