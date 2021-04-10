@@ -1,23 +1,25 @@
 from Core.MeasureSigns.NominalMeasureSign import NominalMeasureSign
 from Core.MeasureSigns.OrdinalMeasureSign import OrdinalMeasureSign
+from Core.MeasureSigns.IntervalMeasureSign import IntervalMeasureSign
 
 from Core.MeasureSigns.Formatters.NominalHTMLFormatter import NominalHTMLFormatter
 from Core.MeasureSigns.Formatters.OrdinalHTMLFormatter import OrdinalHTMLFormatter
+from Core.MeasureSigns.Formatters.IntervalHTMLFormatter import IntervalHTMLFormatter
 
 
 class SignFactory:
     def __init__(self, formatter):
         if formatter == '':
             raise AttributeError('Empty formatter is not allowed, please specify formatter or pass None arg')
-
         self.formatter = formatter if formatter.lower() else 'none'
 
-    def create_measure(self, sign_name, aggregated_values, raw_measure_type, values=None):
-        measure_type = raw_measure_type.lower()
+    def create_measure(self, sign_name, aggregated_values, measure_type, values=None):
         if measure_type == 'nominal':
             return self.create_nominal_measure(sign_name, aggregated_values)
         elif measure_type == 'ordinal':
             return self.create_ordinal_measure(sign_name, aggregated_values, values)
+        elif measure_type == 'interval':
+            return self.create_interval_measure(sign_name, aggregated_values, values)
         else:
             raise NameError(f'No such measure {measure_type}')
 
@@ -35,8 +37,16 @@ class SignFactory:
                 f"Wrong nominal formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
         return measure_class(sign_name, aggregated_values, ranks)
 
+    def create_interval_measure(self, sign_name, aggregated_values, ranks):
+        measure_class = self._allowed_data()['interval'][self.formatter]
+        if not measure_class:
+            raise AttributeError(
+                f"Wrong nominal formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
+        return measure_class(sign_name, aggregated_values, ranks)
+
     def _allowed_data(self):
         return {
             'nominal': {'html': NominalHTMLFormatter, 'none': NominalMeasureSign},
-            'ordinal': {'html': OrdinalHTMLFormatter, 'none': OrdinalMeasureSign}
+            'ordinal': {'html': OrdinalHTMLFormatter, 'none': OrdinalMeasureSign},
+            'interval': {'html': IntervalHTMLFormatter, 'none': IntervalMeasureSign}
         }
