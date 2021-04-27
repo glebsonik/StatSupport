@@ -1,4 +1,4 @@
 class OrdinalIdentifier:
 
-    def is_ordinal(self, data_sign):
+    def is_ordinal(self, data_feature):
         return False

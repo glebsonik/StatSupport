@@ -1,11 +1,11 @@
-from .SelfStatisticCalculators.NominalCalculator import NominalCalculator
-from .AbstractSign import AbstractMeasureSign
+from .DescriptiveStatisticsCalculators.NominalCalculator import NominalCalculator
+from .AbstractFeature import AbstractFeature
 import matplotlib.pyplot as plt
 
 
-class NominalMeasureSign(AbstractMeasureSign):
+class NominalFeature(AbstractFeature):
 
-    _measure = 'Nominal'
+    _scale = 'Nominal'
 
     def get_stat_info(self):
         plt.figure(figsize=(35, 14))

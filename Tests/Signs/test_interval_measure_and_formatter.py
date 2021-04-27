@@ -1,11 +1,11 @@
 import pytest
 import re
-from Core.MeasureSigns.IntervalMeasureSign import IntervalMeasureSign
-from Core.MeasureSigns.SelfStatisticCalculators.IntervalCalculator import IntervalCalculator
+from Core.FeaturesScales.IntervalFeature import IntervalFeature
+from Core.FeaturesScales.DescriptiveStatisticsCalculators.IntervalCalculator import IntervalCalculator
 from unittest.mock import patch
 
 
-class TestIntervalMeasureAndFormatter:
+class TestIntervalscaleAndFormatter:
 
     def setup(self):
         self.correct_ordinal_data = [
@@ -92,21 +92,21 @@ class TestIntervalMeasureAndFormatter:
             }
         ]
 
-    def test_interval_measure(self):
+    def test_interval_scale(self):
         for data in self.correct_ordinal_data:
-            sign = IntervalMeasureSign(data['name'],
-                                       data['data'],
-                                       data['ordered_data'])
+            feature = IntervalFeature(data['name'],
+                                      data['data'],
+                                      data['ordered_data'])
             # expected_ordered_data = {k: v for k, v in sorted(data['ordered_data'].items(), key=lambda item: item[1])}
             expected_ordered_data = data['expected_ordered_data']
             print(expected_ordered_data)
-            assert sign.name == data['name']
+            assert feature.name == data['name']
 
-            print(f"ER: {data['data']} AR: {sign.aggregated_data}")
-            assert sign.aggregated_data == data['data']
+            print(f"ER: {data['data']} AR: {feature.aggregated_data}")
+            assert feature.aggregated_data == data['data']
 
-            print(f"ER: {expected_ordered_data} AR: {sign.ordered_data}")
-            actual_ord_data = list(sign.ordered_data.items())
+            print(f"ER: {expected_ordered_data} AR: {feature.ordered_data}")
+            actual_ord_data = list(feature.ordered_data.items())
             for i in range(0, len(actual_ord_data)):
                 print(f'Case {i}. AR: {actual_ord_data[i]} ER: {expected_ordered_data[i]}')
                 assert actual_ord_data[i] == expected_ordered_data[i]
@@ -114,10 +114,10 @@ class TestIntervalMeasureAndFormatter:
     @patch("matplotlib.pyplot.bar")
     def test_interval_stat_info(self, plot_stub):
         for data in self.correct_ordinal_data:
-            sign = IntervalMeasureSign(data['name'],
-                                       data['data'],
-                                       data['ordered_data'])
-            stat_res = sign.get_stat_info()
+            feature = IntervalFeature(data['name'],
+                                   data['data'],
+                                   data['ordered_data'])
+            stat_res = feature.get_stat_info()
             for key in stat_res:
                 print(f"{key} ER: {data['stat_res'][key]} AR: {stat_res[key]}")
                 assert stat_res[key] == data['stat_res'][key]

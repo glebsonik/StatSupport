@@ -1,11 +1,11 @@
 import pytest
 import re
-from Core.MeasureSigns.IntervalMeasureSign import IntervalMeasureSign
-from Core.MeasureSigns.SelfStatisticCalculators.IntervalCalculator import IntervalCalculator
+from Core.FeaturesScales.IntervalFeature import IntervalFeature
+from Core.FeaturesScales.DescriptiveStatisticsCalculators.IntervalCalculator import IntervalCalculator
 from unittest.mock import patch
 
 
-class TestIntervalMeasureAndFormatter:
+class TestIntervalscaleAndFormatter:
 
     def setup(self):
         self.correct_data = [{'data': [1, 2, 3], 'variance': 1, 'deviation': 1},

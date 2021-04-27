@@ -1,7 +1,7 @@
-from Core.MeasureSigns.IntervalMeasureSign import IntervalMeasureSign
+from Core.FeaturesScales.IntervalFeature import IntervalFeature
 
 
-class IntervalHTMLFormatter(IntervalMeasureSign):
+class IntervalHTMLFormatter(IntervalFeature):
 
     @property
     def f_name(self):
@@ -22,8 +22,8 @@ class IntervalHTMLFormatter(IntervalMeasureSign):
         return res_html_info
 
     def f_aggregated_data(self):
-        signs_list = ''
+        features_list = ''
         for key in self._aggregated_data:
-            signs_list += '<li>' + str(key) + ' – ' + str(self._aggregated_data[key]) + '</li>\n'
-        signs_list = '<ul>\n' + signs_list + '</ul>'
-        return signs_list
+            features_list += '<li>' + str(key) + ' – ' + str(self._aggregated_data[key]) + '</li>\n'
+        features_list = '<ul>\n' + features_list + '</ul>'
+        return features_list

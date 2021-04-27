@@ -6,9 +6,9 @@ class IntervalIdentifier:
     # intervalRegexp = re.compile(r'^[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]+\s*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*$')
     float_text_regexp = re.compile(r'^.{0,12}\d+[.,]\d*.{0,9}$')
 
-    def is_interval(self, data_sign):
+    def is_interval(self, data_feature):
         is_correct_interval = True
-        for metric_value in list(data_sign.keys()):
+        for metric_value in list(data_feature.keys()):
             is_correct_interval *= self.__is_number_or_num_interval(metric_value)
         return is_correct_interval
 

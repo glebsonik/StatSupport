@@ -1,11 +1,11 @@
 import pytest
 import re
-from Core.MeasureSigns.OrdinalMeasureSign import OrdinalMeasureSign
-from Core.MeasureSigns.Formatters.OrdinalHTMLFormatter import OrdinalHTMLFormatter
+from Core.FeaturesScales.OrdinalFeature import OrdinalFeature
+from Core.FeaturesScales.Formatters.OrdinalHTMLFormatter import OrdinalHTMLFormatter
 from unittest.mock import patch
 
 
-class TestOrdinalMeasureAndFormatter:
+class TestOrdinalscaleAndFormatter:
 
     def setup(self):
         self.correct_ordinal_data = [{"name": "Test ordinal Data",
@@ -55,22 +55,22 @@ class TestOrdinalMeasureAndFormatter:
         for data_example in self.correct_ordinal_data:
             print('ex: ', data_example)
 
-            sign = OrdinalMeasureSign(data_example['name'],
-                                      data_example['data'],
-                                      data_example['ranks'])
-            print(sign.name)
-            print(sign.aggregated_data)
-            print(sign._ordered_data)
-            assert sign.name == data_example['name']
-            assert sign._aggregated_data == data_example['data']
-            assert sign._ordered_data == data_example['ranks']
+            feature = OrdinalFeature(data_example['name'],
+                                  data_example['data'],
+                                  data_example['ranks'])
+            print(feature.name)
+            print(feature.aggregated_data)
+            print(feature._ordered_data)
+            assert feature.name == data_example['name']
+            assert feature._aggregated_data == data_example['data']
+            assert feature._ordered_data == data_example['ranks']
 
     def test_ordinal_data_calculation(self):
         # for data_example in self.correct_ordinal_data:
         data_example = self.correct_ordinal_data[0]
-        stat_data = OrdinalMeasureSign(data_example['name'],
-                                       data_example['data'],
-                                       data_example['ranks']).get_stat_info()
+        stat_data = OrdinalFeature(data_example['name'],
+                                   data_example['data'],
+                                   data_example['ranks']).get_stat_info()
         print('er: ', data_example)
         print('ar: ', stat_data)
         assert stat_data['Mode'] == data_example['mode']
@@ -82,30 +82,30 @@ class TestOrdinalMeasureAndFormatter:
         for data_example in self.correct_ordinal_data:
             print('ex: ', data_example)
 
-            sign = OrdinalHTMLFormatter(data_example['name'],
+            feature = OrdinalHTMLFormatter(data_example['name'],
                                         data_example['data'],
                                         data_example['ranks'])
-            print(sign.name)
-            print(sign.aggregated_data)
-            print(sign._ordered_data)
-            assert sign.name == data_example['name']
-            assert sign._aggregated_data == data_example['data']
-            assert sign._ordered_data == data_example['ranks']
-            print(sign.name)
-            print(sign.f_aggregated_data)
-            assert re.match(f"<.*>{data_example['name']}</.*>", sign.f_name)
-            print(sign.f_get_stat_info())
-            # assert re.match(f"<.*>{data_example['data']}</.*>", sign.name)
-            # assert sign._aggregated_data == data_example['data']
-            # assert sign._ordered_data == data_example['ranks']
+            print(feature.name)
+            print(feature.aggregated_data)
+            print(feature._ordered_data)
+            assert feature.name == data_example['name']
+            assert feature._aggregated_data == data_example['data']
+            assert feature._ordered_data == data_example['ranks']
+            print(feature.name)
+            print(feature.f_aggregated_data)
+            assert re.match(f"<.*>{data_example['name']}</.*>", feature.f_name)
+            print(feature.f_get_stat_info())
+            # assert re.match(f"<.*>{data_example['data']}</.*>", feature.name)
+            # assert feature._aggregated_data == data_example['data']
+            # assert feature._ordered_data == data_example['ranks']
 
 
     def test_html_ordinal_data_calculation(self):
         # for data_example in self.correct_ordinal_data:
         data_example = self.correct_ordinal_data[0]
-        stat_data = OrdinalMeasureSign(data_example['name'],
-                                       data_example['data'],
-                                       data_example['ranks']).get_stat_info()
+        stat_data = OrdinalFeature(data_example['name'],
+                                   data_example['data'],
+                                   data_example['ranks']).get_stat_info()
         print('er: ', data_example)
         print('ar: ', stat_data)
         assert stat_data['Mode'] == data_example['mode']

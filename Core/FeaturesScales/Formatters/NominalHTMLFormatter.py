@@ -1,10 +1,10 @@
-from Core.MeasureSigns.NominalMeasureSign import NominalMeasureSign
+from Core.FeaturesScales.NominalFeature import NominalFeature
 
 
-class NominalHTMLFormatter(NominalMeasureSign):
+class NominalHTMLFormatter(NominalFeature):
 
     # def __init__(self, name, f_aggregated_data):
-    #     super(NominalMeasureSign, name, f_aggregated_data)
+    #     super(NominalFeature, name, f_aggregated_data)
 
     @property
     def f_name(self):
@@ -15,11 +15,11 @@ class NominalHTMLFormatter(NominalMeasureSign):
 
     @property
     def f_aggregated_data(self):
-        signs_list = ''
+        features_list = ''
         for key in self._aggregated_data:
-            signs_list += '<li>' + str(key) + ' – ' + str(self._aggregated_data[key]) + '</li>\n'
-        signs_list = '<ul>\n' + signs_list + '</ul>'
-        return signs_list
+            features_list += '<li>' + str(key) + ' – ' + str(self._aggregated_data[key]) + '</li>\n'
+        features_list = '<ul>\n' + features_list + '</ul>'
+        return features_list
 
     def f_get_stat_info(self):
         res_html_info = ''

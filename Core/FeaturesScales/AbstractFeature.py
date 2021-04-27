@@ -1,19 +1,19 @@
-class AbstractMeasureSign:
+class AbstractFeature:
 
     _name = None
     _aggregated_data = {}
-    _measure = None
+    _scale = None
 
-    def __init__(self, sign_name, aggregated_data):
-        self._name = sign_name
+    def __init__(self, feature_name, aggregated_data):
+        self._name = feature_name
         self._aggregated_data = aggregated_data
 
     def get_stat_info(self):
         raise NotImplementedError("Abstract class has no methods implementation")
 
     @property
-    def measure(self):
-        return self._measure
+    def scale(self):
+        return self._scale
 
     @property
     def name(self):
