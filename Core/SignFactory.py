@@ -9,9 +9,13 @@ from Core.MeasureSigns.Formatters.IntervalHTMLFormatter import IntervalHTMLForma
 
 class SignFactory:
     def __init__(self, formatter):
+        allowed_formatters = list(list(self._allowed_data().items())[0][1].keys())
         if formatter == '':
-            raise AttributeError('Empty formatter is not allowed, please specify formatter or pass None arg')
-        self.formatter = formatter if formatter.lower() else 'none'
+            raise AttributeError(f'Empty formatter is not allowed, please specify formatter. Allowed formatters {allowed_formatters}')
+        if formatter.lower() in allowed_formatters:
+            self.formatter = formatter.lower()
+        else:
+            raise AttributeError(f'No such formatter "{formatter}". Allowed formatters #{allowed_formatters}')
 
     def create_measure(self, sign_name, aggregated_values, measure_type, values=None):
         if measure_type == 'nominal':
@@ -34,14 +38,14 @@ class SignFactory:
         measure_class = self._allowed_data()['ordinal'][self.formatter]
         if not measure_class:
             raise AttributeError(
-                f"Wrong nominal formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
+                f"Wrong ordinal formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
         return measure_class(sign_name, aggregated_values, ranks)
 
     def create_interval_measure(self, sign_name, aggregated_values, ranks):
         measure_class = self._allowed_data()['interval'][self.formatter]
         if not measure_class:
             raise AttributeError(
-                f"Wrong nominal formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
+                f"Wrong interval formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
         return measure_class(sign_name, aggregated_values, ranks)
 
     def _allowed_data(self):

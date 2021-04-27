@@ -9,6 +9,8 @@ class IntervalMeasureSign(AbstractMeasureSign):
     _measure = 'Interval'
 
     def __init__(self, name, aggregated_data, ranks: dict):
+        if not(ranks.__class__ == dict):
+            raise AttributeError(f"Non dict ranks is not allowed {ranks.__class__}")
         self._ordered_data = {}
         super(IntervalMeasureSign, self).__init__(name, aggregated_data)
         allowed_names = aggregated_data.keys()
