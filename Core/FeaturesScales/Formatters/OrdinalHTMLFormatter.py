@@ -18,6 +18,13 @@ class OrdinalHTMLFormatter(OrdinalFeature):
         features_list = '<ul>\n' + features_list + '</ul>'
         return features_list
 
+    @property
+    def f_ordered_data(self):
+        res_ordered_data_html = ""
+        for index, item in enumerate(self.ordered_data):
+            res_ordered_data_html += f"<li>{index + 1}</li>"
+        return f"<ul>{res_ordered_data_html}</ul>"
+
     def f_get_stat_info(self):
         res_html_info = ''
         info_dict = self.get_stat_info()
@@ -31,3 +38,11 @@ class OrdinalHTMLFormatter(OrdinalFeature):
                 res_html_info += f'<li>{info_dict[info_key]}</li>'
             res_html_info += '</ul>'
         return res_html_info
+
+    def __str__(self):
+        return(f'<div style="font-weight: bold; font-size: 20px">Feature </div>{self.f_name}'
+               f'<div>Scale: <span style="font-style: italic">{self.scale}</span></div>'
+               f'<div>Ranks:</div>'
+               f'{self.f_ordered_data}'
+               f'<div>Observation aggregated data</div>'
+               f'{self.f_aggregated_data}')

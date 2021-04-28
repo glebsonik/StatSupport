@@ -21,9 +21,26 @@ class IntervalHTMLFormatter(IntervalFeature):
             res_html_info += '</ul>'
         return res_html_info
 
+    @property
     def f_aggregated_data(self):
         features_list = ''
         for key in self._aggregated_data:
             features_list += '<li>' + str(key) + ' – ' + str(self._aggregated_data[key]) + '</li>\n'
         features_list = '<ul>\n' + features_list + '</ul>'
         return features_list
+
+    @property
+    def f_ordered_data(self):
+        features_list = ''
+        for key in self.ordered_data:
+            print(key, ' ', self.ordered_data[key])
+            features_list += '<li>' + str(key) + ' – ' + str(self.ordered_data[key]) + '</li>\n'
+        return '<ul>' + features_list + '</ul>'
+
+    def __str__(self):
+        return (f'<div style="font-weight: bold; font-size: 20px">Feature </div>{self.f_name}'
+                f'<div>Scale: <span style="font-style: italic">{self.scale}</span></div>'
+                f'<div>Ranks values: </div>'
+                f'{self.f_ordered_data}'
+                f'<div>Observation aggregated data</div>'
+                f'{self.f_aggregated_data}')

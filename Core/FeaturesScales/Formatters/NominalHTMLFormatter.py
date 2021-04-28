@@ -31,3 +31,10 @@ class NominalHTMLFormatter(NominalFeature):
                 res_html_info += f'<li>{stat_key} – {info_dict[info_key][stat_key]}</li>'
             res_html_info += '</ul>'
         return res_html_info
+
+    def __str__(self):
+        res_html = f'<div style="font-weight: bold;">Feature </div>{self.f_name}'\
+               f'<div>Scale: <span style="font-style: italic">{self.scale}</span></div>'\
+               f'<div>Observation aggregated data</div>'\
+               f'{self.f_aggregated_data}'
+        return(f'<div style="font-size: 20px;">{res_html}</div><hr>')
