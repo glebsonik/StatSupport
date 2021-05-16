@@ -9,7 +9,7 @@ class TestOrdinalscaleAndFormatter:
 
     def setup(self):
         self.correct_ordinal_data = [{"name": "Test ordinal Data",
-                                      "data": {
+                                      "aggregated_data": {
                                           "Yes": 5,
                                           "No": 67,
                                           "Maybe": 87
@@ -19,7 +19,7 @@ class TestOrdinalscaleAndFormatter:
                                       'mode': {"Maybe": 87},
                                       'median': {"Maybe": 87}
                                       }, {"name": "Тест Ранговой шкалі",
-                                          "data": {
+                                          "aggregated_data": {
                                               89: 5,
                                               "No": 67,
                                               "Maybe": 87
@@ -27,7 +27,7 @@ class TestOrdinalscaleAndFormatter:
                                           "ranks": ["No", "Maybe", 89]
                                           },
                                      {"name": "Test ordinal Data",
-                                      "data": {
+                                      "aggregated_data": {
                                           "Maybe": 87,
                                           "Yes": 5,
                                           'Iess': 1
@@ -35,14 +35,14 @@ class TestOrdinalscaleAndFormatter:
                                       "ranks": ["Maybe", "Yes", 'Iess']
                                       },
                                      {"name": "Test ordinal Data",
-                                      "data": {
+                                      "aggregated_data": {
                                           "Yes": 5,
                                           "No": 67,
                                           "Maybe": 87
                                       },
                                       "ranks": ["Yes", "No", "Maybe"]
                                       }, {"name": "Test ordinal Data",
-                                          "data": {
+                                          "aggregated_data": {
                                               "Yes": 5,
                                               "No": 67,
                                               "Maybe": 87
@@ -51,25 +51,33 @@ class TestOrdinalscaleAndFormatter:
                                           }
                                      ]
 
+    def pr_list(self, hss):
+        res = []
+        for val in hss:
+            for y in range(hss[val]):
+                res.append(val)
+        return res
+
     def test_ordinal_init(self):
         for data_example in self.correct_ordinal_data:
             print('ex: ', data_example)
-
+            raw_data = self.pr_list(data_example['aggregated_data'])
             feature = OrdinalFeature(data_example['name'],
-                                  data_example['data'],
-                                  data_example['ranks'])
+                                     raw_data,
+                                     data_example['ranks'])
             print(feature.name)
             print(feature.aggregated_data)
             print(feature._ordered_data)
             assert feature.name == data_example['name']
-            assert feature._aggregated_data == data_example['data']
+            assert feature._aggregated_data == data_example['aggregated_data']
             assert feature._ordered_data == data_example['ranks']
 
     def test_ordinal_data_calculation(self):
         # for data_example in self.correct_ordinal_data:
         data_example = self.correct_ordinal_data[0]
+        raw_data = self.pr_list(data_example['aggregated_data'])
         stat_data = OrdinalFeature(data_example['name'],
-                                   data_example['data'],
+                                   raw_data,
                                    data_example['ranks']).get_stat_info()
         print('er: ', data_example)
         print('ar: ', stat_data)
@@ -81,15 +89,15 @@ class TestOrdinalscaleAndFormatter:
     def test_html_ordinal_init(self, plot_stub):
         for data_example in self.correct_ordinal_data:
             print('ex: ', data_example)
-
+            raw_data = self.pr_list(data_example['aggregated_data'])
             feature = OrdinalHTMLFormatter(data_example['name'],
-                                        data_example['data'],
-                                        data_example['ranks'])
+                                           raw_data,
+                                           data_example['ranks'])
             print(feature.name)
             print(feature.aggregated_data)
             print(feature._ordered_data)
             assert feature.name == data_example['name']
-            assert feature._aggregated_data == data_example['data']
+            assert feature._aggregated_data == data_example['aggregated_data']
             assert feature._ordered_data == data_example['ranks']
             print(feature.name)
             print(feature.f_aggregated_data)
@@ -99,12 +107,12 @@ class TestOrdinalscaleAndFormatter:
             # assert feature._aggregated_data == data_example['data']
             # assert feature._ordered_data == data_example['ranks']
 
-
     def test_html_ordinal_data_calculation(self):
         # for data_example in self.correct_ordinal_data:
         data_example = self.correct_ordinal_data[0]
+        raw_data = self.pr_list(data_example['aggregated_data'])
         stat_data = OrdinalFeature(data_example['name'],
-                                   data_example['data'],
+                                   raw_data,
                                    data_example['ranks']).get_stat_info()
         print('er: ', data_example)
         print('ar: ', stat_data)

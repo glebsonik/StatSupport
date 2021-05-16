@@ -8,12 +8,12 @@ class IntervalFeature(AbstractFeature):
 
     _scale = 'Interval'
 
-    def __init__(self, name, aggregated_data, ranks: dict):
+    def __init__(self, name, data, ranks: dict):
         if not(ranks.__class__ == dict):
             raise AttributeError(f"Non dict ranks is not allowed {ranks.__class__}")
         self._ordered_data = {}
-        super(IntervalFeature, self).__init__(name, aggregated_data)
-        allowed_names = aggregated_data.keys()
+        super(IntervalFeature, self).__init__(name, data)
+        allowed_names = self.aggregated_data.keys()
         if len(ranks) != len(allowed_names):
             raise IndexError(f'Incorrect keys count in ranks expected: {len(allowed_names)} got: {len(ranks)}')
         for rank_name in ranks:

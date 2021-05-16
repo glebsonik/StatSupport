@@ -15,18 +15,28 @@ class TestScaleFeaturesFactory:
              {'avg4': 12, 'ang5': 56, 'an_11': 76, 'ang31': 11, 'avg21': 9}]
         ]
 
+    def pr_list(self, hss):
+        res = []
+        for val in hss:
+            for y in range(hss[val]):
+                res.append(val)
+        return res
+
     def test_scales_creation(self):
         none_formatter_feature_factory = ScaleFeaturesFactory('none')
         html_feature_factory = ScaleFeaturesFactory('html')
 
         for example in self.data_examples:
-            scale = html_feature_factory.create_feature(example[0], example[1], example[2], example[3])
+            raw_data = self.pr_list(example[1])
+            scale = html_feature_factory.create_feature(example[0], raw_data, example[2], example[3])
             assert scale.name == example[0]
             assert scale.aggregated_data == example[1]
+            assert scale.data == raw_data
             assert scale._scale.lower() == example[2]
-            scale = none_formatter_feature_factory.create_feature(example[0], example[1], example[2], example[3])
+            scale = none_formatter_feature_factory.create_feature(example[0], raw_data, example[2], example[3])
             assert scale.name == example[0]
             assert scale.aggregated_data == example[1]
+            assert scale.data == raw_data
             assert scale._scale.lower() == example[2]
 
     def test_incorrect_formatter_exception(self):

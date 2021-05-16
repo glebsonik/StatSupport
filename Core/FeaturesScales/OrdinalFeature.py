@@ -8,10 +8,10 @@ class OrdinalFeature(AbstractFeature):
 
     _scale = 'Ordinal'
 
-    def __init__(self, name, aggregated_data, ranks):
+    def __init__(self, name, data, ranks):
         self._ordered_data = []
-        super(OrdinalFeature, self).__init__(name, aggregated_data)
-        allowed_names = aggregated_data.keys()
+        super(OrdinalFeature, self).__init__(name, data)
+        allowed_names = self.aggregated_data.keys()
         if len(ranks) != len(allowed_names):
             raise IndexError(f'Incorrect keys count in ranks expected: {len(allowed_names)} got: {len(ranks)}')
         for rank_name in ranks:

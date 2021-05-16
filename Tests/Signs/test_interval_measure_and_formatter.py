@@ -11,7 +11,7 @@ class TestIntervalscaleAndFormatter:
         self.correct_ordinal_data = [
             {
                 "name": "Test interval data int",
-                "data": {
+                "aggregated_data": {
                     "First val": 5,
                     "Sec val": 67,
                     "Third val": 87
@@ -37,7 +37,7 @@ class TestIntervalscaleAndFormatter:
             },
             {
                 "name": "Test interval data float",
-                "data": {
+                "aggregated_data": {
                     "F_First": 1,
                     "F_Sec": 50,
                     "F_Third": 13
@@ -63,7 +63,7 @@ class TestIntervalscaleAndFormatter:
             },
             {
                 "name": "Test interval data float even",
-                "data": {
+                "aggregated_data": {
                     "Fe_First": 5,
                     "Fe_Sec": 95,
                     "Fe_Third": 12,
@@ -92,18 +92,27 @@ class TestIntervalscaleAndFormatter:
             }
         ]
 
+    def pr_list(self, hss):
+        res = []
+        for val in hss:
+            for y in range(hss[val]):
+                res.append(val)
+        return res
+
     def test_interval_scale(self):
         for data in self.correct_ordinal_data:
+            raw_data = self.pr_list(data['aggregated_data'])
             feature = IntervalFeature(data['name'],
-                                      data['data'],
+                                      raw_data,
                                       data['ordered_data'])
             # expected_ordered_data = {k: v for k, v in sorted(data['ordered_data'].items(), key=lambda item: item[1])}
             expected_ordered_data = data['expected_ordered_data']
             print(expected_ordered_data)
             assert feature.name == data['name']
 
-            print(f"ER: {data['data']} AR: {feature.aggregated_data}")
-            assert feature.aggregated_data == data['data']
+            print(f"ER: {data['aggregated_data']} AR: {feature.aggregated_data}")
+            assert feature.aggregated_data == data['aggregated_data']
+            assert feature.data == raw_data
 
             print(f"ER: {expected_ordered_data} AR: {feature.ordered_data}")
             actual_ord_data = list(feature.ordered_data.items())
@@ -114,9 +123,10 @@ class TestIntervalscaleAndFormatter:
     @patch("matplotlib.pyplot.bar")
     def test_interval_stat_info(self, plot_stub):
         for data in self.correct_ordinal_data:
+            raw_data = self.pr_list(data['aggregated_data'])
             feature = IntervalFeature(data['name'],
-                                   data['data'],
-                                   data['ordered_data'])
+                                      raw_data,
+                                      data['ordered_data'])
             stat_res = feature.get_stat_info()
             for key in stat_res:
                 print(f"{key} ER: {data['stat_res'][key]} AR: {stat_res[key]}")

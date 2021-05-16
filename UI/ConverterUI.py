@@ -113,14 +113,14 @@ class ConverterUI:
         previous_scale = self.scales_manager[self.operation_data['feature_name']]
         feature_factory = ScaleFeaturesFactory(self.scales_manager.feature_format)
         new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.aggregated_data,
-                                                  self.operation_data['scale'])
+                                                   self.operation_data['scale'])
         self.scales_manager[self.operation_data['feature_name']] = new_scale
 
     def create_ordinal_scale(self):
         previous_scale = self.scales_manager[self.operation_data['feature_name']]
         feature_factory = ScaleFeaturesFactory(self.scales_manager.feature_format)
         new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.aggregated_data,
-                                                  self.operation_data['scale'], self.collect_values())
+                                                   self.operation_data['scale'], self.collect_values())
         self.scales_manager[self.operation_data['feature_name']] = new_scale
 
     def create_interval_scale(self):
@@ -132,7 +132,7 @@ class ConverterUI:
         for i in range(len(values_weights)):
             values_dict[value_names[i]] = values_weights[i]
         new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.aggregated_data,
-                                                  self.operation_data['scale'], values_dict)
+                                                   self.operation_data['scale'], values_dict)
         self.scales_manager[self.operation_data['feature_name']] = new_scale
 
     def collect_values(self):

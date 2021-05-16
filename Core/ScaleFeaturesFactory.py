@@ -17,36 +17,36 @@ class ScaleFeaturesFactory:
         else:
             raise AttributeError(f'No such formatter "{formatter}". Allowed formatters #{allowed_formatters}')
 
-    def create_feature(self, feature_name, aggregated_values, scale_type, values=None):
+    def create_feature(self, feature_name, observation, scale_type, values=None):
         if scale_type == 'nominal':
-            return self.create_nominal_feature(feature_name, aggregated_values)
+            return self.create_nominal_feature(feature_name, observation)
         elif scale_type == 'ordinal':
-            return self.create_ordinal_feature(feature_name, aggregated_values, values)
+            return self.create_ordinal_feature(feature_name, observation, values)
         elif scale_type == 'interval':
-            return self.create_interval_feature(feature_name, aggregated_values, values)
+            return self.create_interval_feature(feature_name, observation, values)
         else:
             raise NameError(f'No such scale {scale_type}')
 
-    def create_nominal_feature(self, features_name, aggregated_values):
+    def create_nominal_feature(self, features_name, raw_observation):
         feature_class = self._allowed_data()['nominal'][self.formatter]
         if not feature_class:
             raise AttributeError(
                 f"Wrong nominal formatter: {self.formatter}, allowed formatters {self._allowed_data()['nominal'].keys}")
-        return feature_class(features_name, aggregated_values)
+        return feature_class(features_name, raw_observation)
 
-    def create_ordinal_feature(self, features_name, aggregated_values, ranks):
+    def create_ordinal_feature(self, features_name, raw_observation, ranks):
         feature_class = self._allowed_data()['ordinal'][self.formatter]
         if not feature_class:
             raise AttributeError(
                 f"Wrong ordinal formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
-        return feature_class(features_name, aggregated_values, ranks)
+        return feature_class(features_name, raw_observation, ranks)
 
-    def create_interval_feature(self, features_name, aggregated_values, ranks):
+    def create_interval_feature(self, features_name, raw_observation, ranks):
         feature_class = self._allowed_data()['interval'][self.formatter]
         if not feature_class:
             raise AttributeError(
                 f"Wrong interval formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
-        return feature_class(features_name, aggregated_values, ranks)
+        return feature_class(features_name, raw_observation, ranks)
 
     def _allowed_data(self):
         return {

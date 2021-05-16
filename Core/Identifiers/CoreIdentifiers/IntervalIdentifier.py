@@ -1,12 +1,13 @@
 import re
-
+from Core.Service.DataAggregator import DataAggregator
 
 class IntervalIdentifier:
 
     # intervalRegexp = re.compile(r'^[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]+\s*\d+(\.\d*)?[-–\sa-zA-ZА-Яа-яёЁЇїІіЄєҐґ]*$')
     float_text_regexp = re.compile(r'^.{0,12}\d+[.,]\d*.{0,9}$')
 
-    def is_interval(self, data_feature):
+    def is_interval(self, raw_data_feature: list):
+        data_feature = DataAggregator.aggregate_list(raw_data_feature)
         is_correct_interval = True
         for metric_value in list(data_feature.keys()):
             is_correct_interval *= self.__is_number_or_num_interval(metric_value)

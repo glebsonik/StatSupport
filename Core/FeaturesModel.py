@@ -8,7 +8,6 @@ from Core.ScaleFeaturesFactory import ScaleFeaturesFactory
 class FeaturesModel:
 
     raw_df = None
-    feature_sc_def = FeatureScaleDefiner()
 
     def __init__(self, dtf, formatter):
         self.features = []
@@ -16,18 +15,19 @@ class FeaturesModel:
         self.feature_format = formatter
         self.__define_scales()
 
-    def __dict_with_scales(self):
+    def __convert_to_python_types(self):
         features_data = dict()
         for column in self.raw_df.columns:
-            features_data[column] = self.raw_df[column].value_counts().to_dict()
+            features_data[column] = self.raw_df[column].tolist()
         return features_data
 
     def __define_scales(self):
+        feature_sc_def = FeatureScaleDefiner()
         scale_factory = ScaleFeaturesFactory(self.feature_format)
-        scales = self.__dict_with_scales()
-        for feature_name in scales:
-            self.features.append(scale_factory.create_feature(feature_name, scales[feature_name],
-                                                              self.feature_sc_def.define_scale(scales[feature_name])))
+        data = self.__convert_to_python_types()
+        for feature_name in data:
+            self.features.append(scale_factory.create_feature(feature_name, data[feature_name],
+                                                              feature_sc_def.define_scale(data[feature_name])))
 
     def raw_features_names(self):
         return list(map(lambda feature: feature.name, self.features))
