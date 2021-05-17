@@ -22,7 +22,7 @@ class OrdinalHTMLFormatter(OrdinalFeature):
     def f_ordered_data(self):
         res_ordered_data_html = ""
         for index, item in enumerate(self.ordered_data):
-            res_ordered_data_html += f"<li>{index + 1}</li>"
+            res_ordered_data_html += f"<li>{index + 1} – {item} </li>"
         return f"<ul>{res_ordered_data_html}</ul>"
 
     def f_get_stat_info(self):
