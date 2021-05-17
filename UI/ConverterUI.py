@@ -23,11 +23,14 @@ class ConverterUI:
         self.convert_button = widgets.Button(description='Convert scale', disabled=True)
         self.convert_button.on_click(self.get_convert_button_controller())
         self.features_dropdown.observe(self.get_features_dropdown_controller())
+        self.recently_changed = []
 
     def ui(self):
         self.convert_container.children = ()
         clear_output(wait=True)
         display(self.features_dropdown)
+        if len(self.recently_changed) != 0:
+            display("Recently changed: " + str(self.recently_changed))
 
     def get_features_dropdown_controller(self):
         def features_dropdown_controller(change):
@@ -103,6 +106,7 @@ class ConverterUI:
     def get_convert_button_controller(self):
         def convert_button_controller(sender):
             getattr(self, f"create_{self.operation_data['scale']}_scale")()
+            self.recently_changed.append(self.operation_data['feature_name'])
             self.ui()
             display(HTML(
                 f"<div>Successfully converted {self.operation_data['feature_name']} to <b>{self.operation_data['scale']}</b></div>"))
@@ -112,14 +116,14 @@ class ConverterUI:
     def create_nominal_scale(self):
         previous_scale = self.scales_manager[self.operation_data['feature_name']]
         feature_factory = ScaleFeaturesFactory(self.scales_manager.feature_format)
-        new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.aggregated_data,
+        new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.data,
                                                    self.operation_data['scale'])
         self.scales_manager[self.operation_data['feature_name']] = new_scale
 
     def create_ordinal_scale(self):
         previous_scale = self.scales_manager[self.operation_data['feature_name']]
         feature_factory = ScaleFeaturesFactory(self.scales_manager.feature_format)
-        new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.aggregated_data,
+        new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.data,
                                                    self.operation_data['scale'], self.collect_values())
         self.scales_manager[self.operation_data['feature_name']] = new_scale
 
@@ -131,7 +135,7 @@ class ConverterUI:
         values_dict = {}
         for i in range(len(values_weights)):
             values_dict[value_names[i]] = values_weights[i]
-        new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.aggregated_data,
+        new_scale = feature_factory.create_feature(self.operation_data['feature_name'], previous_scale.data,
                                                    self.operation_data['scale'], values_dict)
         self.scales_manager[self.operation_data['feature_name']] = new_scale
 
