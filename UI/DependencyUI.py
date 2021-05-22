@@ -16,7 +16,7 @@ class DependencyUI:
         feature_1_dropdown = widgets.Dropdown(
             options=self._features_model.raw_features_names(),
             value=None,
-            description='Choose feature: ',
+            description='Choose feature 1: ',
             style={'description_width': 'initial'},
             layout={'width': '100%'}
         )
