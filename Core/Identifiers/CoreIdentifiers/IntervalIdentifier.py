@@ -17,7 +17,7 @@ class IntervalIdentifier:
         if type(value) == float:
             return True
         else:
-            if re.match(self.float_text_regexp, value):
+            if re.match(self.float_text_regexp, str(value)):
                 return True
             else:
                 return False

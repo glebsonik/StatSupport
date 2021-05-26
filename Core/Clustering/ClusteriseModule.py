@@ -2,7 +2,6 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from copy import copy
 
-
 class ClusteriseModule:
 
     def __init__(self, feature_1, feature_2):
@@ -41,6 +40,7 @@ class ClusteriseModule:
         plt.yticks(y_ticks_list, new_y_ticks)
         plt.xlabel(self.feature_1.name)
         plt.ylabel(self.feature_2.name)
+        plt.figure(figsize=(35, 14))
         plt.show()
 
     def encode_features(self, feature):
