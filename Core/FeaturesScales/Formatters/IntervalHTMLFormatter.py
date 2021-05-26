@@ -33,7 +33,6 @@ class IntervalHTMLFormatter(IntervalFeature):
     def f_ordered_data(self):
         features_list = ''
         for key in self.ordered_data:
-            print(key, ' ', self.ordered_data[key])
             features_list += '<li>' + str(key) + ' – ' + str(self.ordered_data[key]) + '</li>\n'
         return '<ul>' + features_list + '</ul>'
 

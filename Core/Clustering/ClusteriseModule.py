@@ -14,7 +14,6 @@ class ClusteriseModule:
         pairs_data = list()
         for i in range(len(feature_1_encoded_data)):
             pairs_data.append([feature_1_encoded_data[i], feature_2_encoded_data[i]])
-        print(pairs_data)
         kmeans = KMeans(init='k-means++', max_iter=300, n_init=10, random_state=0).fit(pairs_data)
         self.build_plot(kmeans)
 

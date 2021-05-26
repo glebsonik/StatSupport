@@ -31,7 +31,6 @@ class DependencyAnalysisModule:
             return pearson_res
         else:
             spearman_res = spearmanr(feature_1_observations, feature_2_observations)
-            print(spearman_res)
             self.build_plot(feature_1, feature_2, spearman_res)
             return spearman_res
 

@@ -27,7 +27,6 @@ class FeaturesModel:
         data = self.__convert_to_python_types()
 
         for feature_name in data:
-            print("===-=-=-=-=-= ", feature_sc_def.get_scale_ranks(data[feature_name]))
             self.features.append(scale_factory.create_feature(feature_name, data[feature_name],
                                                               feature_sc_def.define_scale(data[feature_name]),
                                                               feature_sc_def.get_scale_ranks(data[feature_name])))
