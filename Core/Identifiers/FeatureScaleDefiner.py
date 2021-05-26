@@ -15,3 +15,9 @@ class FeatureScaleDefiner:
             return 'ordinal'
         else:
             return 'nominal'
+
+    def get_scale_ranks(self, raw_data_observation):
+        if self.define_scale(raw_data_observation) == 'interval':
+            return self.numeric_identifier.get_ranks_for_observation(raw_data_observation)
+        else:
+            return None

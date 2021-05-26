@@ -15,7 +15,7 @@ class IntervalHTMLFormatter(IntervalFeature):
             res_html_info += '<ul>'
             if isinstance(info_dict[info_key], dict):
                 for stat_key in info_dict[info_key]:
-                    res_html_info += f'<li>{stat_key} – {round(info_dict[info_key][stat_key], 3)}</li>'
+                    res_html_info += f'<li>Scale value name: {stat_key} – Result: {round(info_dict[info_key][stat_key], 3)}</li>'
             else:
                 res_html_info += f'<li>{round(info_dict[info_key], 3)}</li>'
             res_html_info += '</ul>'

@@ -25,9 +25,12 @@ class FeaturesModel:
         feature_sc_def = FeatureScaleDefiner()
         scale_factory = ScaleFeaturesFactory(self.feature_format)
         data = self.__convert_to_python_types()
+
         for feature_name in data:
+            print("===-=-=-=-=-= ", feature_sc_def.get_scale_ranks(data[feature_name]))
             self.features.append(scale_factory.create_feature(feature_name, data[feature_name],
-                                                              feature_sc_def.define_scale(data[feature_name])))
+                                                              feature_sc_def.define_scale(data[feature_name]),
+                                                              feature_sc_def.get_scale_ranks(data[feature_name])))
 
     def raw_features_names(self):
         return list(map(lambda feature: feature.name, self.features))

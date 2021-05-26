@@ -46,6 +46,7 @@ class ScaleFeaturesFactory:
         if not feature_class:
             raise AttributeError(
                 f"Wrong interval formatter: {self.formatter}, allowed formatters {self._allowed_data()['ordinal'].keys}")
+        print("Creating: ", features_name, " =====***======\n", raw_observation, "****====_____\n", ranks)
         return feature_class(features_name, raw_observation, ranks)
 
     def _allowed_data(self):
